@@ -1,19 +1,10 @@
 add_library(vulkan-1 SHARED IMPORTED GLOBAL)
 
-if (MINGW AND NOT CLANG)
-	set_target_properties(vulkan-1 PROPERTIES IMPORTED_IMPLIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/vulkan-1.lib")
-elseif(MINGW AND CLANG)
-	set_target_properties(vulkan-1 PROPERTIES IMPORTED_IMPLIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/vulkan-1.lib")
-elseif(MSVC AND CLANG)
-	if(CMAKE_BUILD_TYPE MATCHES Debug)
-		set_target_properties(vulkan-1 PROPERTIES IMPORTED_IMPLIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/vulkan-1.lib")
-	else()
-		set_target_properties(vulkan-1 PROPERTIES IMPORTED_IMPLIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/vulkan-1.lib")
-	endif()	
-elseif(LINUX)
-	find_library(Vulkan_Lib vulkan)
-    set_target_properties(vulkan-1 PROPERTIES IMPORTED_LOCATION ${Vulkan_Lib})
-endif()
+if(CMAKE_BUILD_TYPE MATCHES Debug)
+   set_target_properties(vulkan-1 PROPERTIES IMPORTED_IMPLIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/vulkan-1.lib")
+else()
+   set_target_properties(vulkan-1 PROPERTIES IMPORTED_IMPLIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/vulkan-1.lib")
+endif()	
 
 set(SPIRV_SOURCES
 
